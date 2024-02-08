@@ -10,14 +10,14 @@ function Tests() {
   const [pingResults, setPingResults] = useState({});
   const [loadingMacAddress, setLoadingMacAddress] = useState(null);
   const [error, setError] = useState("");
+  const [testType, setTestType] = useState("");
 
-  const pingModulesWithMacAddress = async (macAddress) => {
-    console.log("Pinging with MAC Address:", macAddress);
-    setLoadingMacAddress(macAddress);
+  const pingModulesWithMacAddress = async (macAddress, testType) => {
+    setLoadingMacAddress(macAddress); // Show loading indicator
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ macAddress }),
+      body: JSON.stringify({ macAddress, testType }),
     };
 
     try {
@@ -25,21 +25,24 @@ function Tests() {
         "https://logs-foem.onrender.com/api/pingModule",
         requestOptions
       );
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      await response.json();
-      console.log("Ping response:", macAddress);
 
+      const data = await response.json();
+
+      console.log("Ping response:", data);
       setTimeout(() => {
         fetchPongMessage();
         setLoadingMacAddress(null);
       }, 5000);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error during test:", error);
       setLoadingMacAddress(null);
     }
   };
+
   const fetchPongMessage = async () => {
     try {
       const response = await fetch(
@@ -77,10 +80,33 @@ function Tests() {
             <div className="button-and-loading">
               <button
                 className="button"
-                disabled={loadingMacAddress === module.macAddress} // Disable button for loading module
-                onClick={() => pingModulesWithMacAddress(module.macAddress)}
+                disabled={loadingMacAddress === module.macAddress}
+                onClick={() => {
+                  setTestType("PingTest");
+                  pingModulesWithMacAddress(module.macAddress, "PingTest");
+                }}
               >
                 Send Ping
+              </button>
+              <button
+                className="button"
+                disabled={loadingMacAddress === module.macAddress}
+                onClick={() => {
+                  setTestType("LedTest");
+                  pingModulesWithMacAddress(module.macAddress, "LedTest");
+                }}
+              >
+                Test LEDs
+              </button>
+              <button
+                className="button"
+                disabled={loadingMacAddress === module.macAddress}
+                onClick={() => {
+                  setTestType("LedTest");
+                  pingModulesWithMacAddress(module.macAddress, "Reset");
+                }}
+              >
+                Reset Module
               </button>
               {loadingMacAddress === module.macAddress ? (
                 <div className="pingMassage">

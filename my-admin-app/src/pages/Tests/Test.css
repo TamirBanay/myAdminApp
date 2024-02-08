@@ -27,7 +27,7 @@
 .button {
   background-color: #007bff;
   color: white;
-  padding: 10px 15px;
+  padding: 8px 4px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -50,9 +50,7 @@
   justify-content: center;
 }
 
-/* Assuming Loading is a custom loading spinner component */
 .Loading {
-  /* Example spinner styles */
   border: 4px solid rgba(0, 0, 0, 0.1);
   width: 36px;
   height: 36px;
