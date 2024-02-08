@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home";
 import Logs from "./pages/Logs/Logs";
 import Tests from "./pages/Tests/Tests";
 import Navbar from "./components/Navbar/Navbar";
+// import signIn from "./components/SignIn/SignInPage";
 
 function App() {
   const [modules, setModules] = useRecoilState(_modules);
@@ -54,6 +55,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="test" element={<Tests />} />
           <Route path="logs" element={<Logs />} />
+          {/* <Route path="signin" element={<signIn />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
