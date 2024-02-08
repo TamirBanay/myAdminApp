@@ -12,6 +12,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { _userIsLoggedIn } from "../../services/atom";
+import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -22,8 +25,11 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link
+        color="inherit"
+        href="https://tamirbanay.github.io/my-personalSite/"
+      >
+        Tamir Banay
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -34,13 +40,42 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const [userIsLogIn, setUserIsLogIn] = useRecoilState(_userIsLoggedIn);
+  const navigate = useNavigate();
+  localStorage.setItem("isLoggedIn", false);
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    const payload = {
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+
+    try {
+      const response = await fetch("https://logs-foem.onrender.com/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        console.log("Authentication successful", responseData);
+        setUserIsLogIn(true);
+        localStorage.setItem("isLoggedIn", true);
+        navigate("/");
+      } else {
+        console.log("Authentication failed", responseData);
+        alert("Login Failed: " + responseData.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Login Failed: Network error");
+    }
   };
 
   return (
@@ -99,18 +134,6 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

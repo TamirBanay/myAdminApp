@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { _modules, _logs } from "./services/atom";
+import { _modules, _logs, _userIsLoggedIn } from "./services/atom";
 import { useRecoilState } from "recoil";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Logs from "./pages/Logs/Logs";
 import Tests from "./pages/Tests/Tests";
 import Navbar from "./components/Navbar/Navbar";
-// import signIn from "./components/SignIn/SignInPage";
+import SignIn from "./pages/SignIn/SignIn";
 
 function App() {
   const [modules, setModules] = useRecoilState(_modules);
   const [logs, setLogs] = useRecoilState(_logs);
+  const [userIsLogIn, setUserIsLogIn] = useRecoilState(_userIsLoggedIn);
+  const userLogIn = localStorage.getItem("isLoggedIn");
+  console.log(userIsLogIn);
 
   useEffect(() => {
     const fetchModules = async () => {
@@ -49,13 +52,14 @@ function App() {
 
   return (
     <div>
-      <Navbar />
+      {userLogIn ? <Navbar /> : ""}
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="test" element={<Tests />} />
           <Route path="logs" element={<Logs />} />
-          {/* <Route path="signin" element={<signIn />} /> */}
+          <Route path="signin" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </div>

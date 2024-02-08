@@ -8,3 +8,7 @@ export const _logs = atom({
   key: "_logs",
   default: [],
 });
+export const _userIsLoggedIn = atom({
+  key: "_userIsLoggedIn",
+  default: localStorage.getItem("isLoggedIn") || false,
+});
