@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { _modules, _logs } from "./services/atom";
 import { useRecoilState } from "recoil";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Logs from "./pages/Logs/Logs";
+import Tests from "./pages/Tests/Tests";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   const [modules, setModules] = useRecoilState(_modules);
@@ -41,42 +46,18 @@ function App() {
     fetchModules();
   }, []);
 
-  useEffect(() => {
-    // Function to fetch logs from the server
-    const fetchLogs = async () => {
-      try {
-        const response = await fetch(
-          "https://logs-foem.onrender.com/api/logs",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            // Send any required data as JSON
-            // If your endpoint doesn't require a body, you can omit this part
-            body: JSON.stringify({
-              /* Your request body here */
-            }),
-          }
-        );
-
-        if (!response.ok) {
-          // If the response is not ok, throw an error with the status
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json(); // Parse the JSON from the response
-        setLogs(data); // Update state with the received logs
-        console.log(data);
-      } catch (error) {
-        // Log the error message, which includes the status if it was thrown above
-        console.error("There was a problem fetching the logs:", error.message);
-      }
-    };
-
-    fetchLogs();
-  }, []);
-  return <div className="App"></div>;
+  return (
+    <div>
+      <Navbar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="test" element={<Tests />} />
+          <Route path="logs" element={<Logs />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
