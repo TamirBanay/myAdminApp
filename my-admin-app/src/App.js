@@ -14,7 +14,6 @@ function App() {
   const [logs, setLogs] = useRecoilState(_logs);
   const [userIsLogIn, setUserIsLogIn] = useRecoilState(_userIsLoggedIn);
   const userLogIn = localStorage.getItem("isLoggedIn");
-  console.log(userIsLogIn);
 
   useEffect(() => {
     const fetchModules = async () => {
