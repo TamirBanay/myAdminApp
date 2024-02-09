@@ -1,0 +1,34 @@
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.logs-table th,
+.logs-table td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  max-width: 50px;
+}
+
+.logs-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.logs-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.logs-table td {
+  max-width: 300px; /* Or any other max-width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* .logs-table td:hover {
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+} */

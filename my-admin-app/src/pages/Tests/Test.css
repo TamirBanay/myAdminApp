@@ -1,0 +1,60 @@
+.Test-module {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Test-module-details {
+  display: flex;
+  flex-direction: column;
+}
+.Test-module strong {
+  color: #333;
+}
+
+.button-and-loading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px; /* Adjusts space between button and loading indicator */
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 4px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.button:disabled {
+  background-color: #cccccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.pingMassage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Loading {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: #007bff;
+  animation: spin 1s linear infinite;
+}
