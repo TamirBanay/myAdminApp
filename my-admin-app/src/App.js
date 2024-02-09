@@ -53,16 +53,16 @@ function App() {
     <div>
       {/* {userLogIn ? */}
       <Navbar />
-      {/* :  */}
+      {/* : */}
       {/* ""} */}
 
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
-          {/* <Route path="/" element={<Navigate replace to="/signin" />} /> */}
+          <Route path="/" element={<Navigate replace to="/signin" />} />
           <Route exact path="/home" element={<Home />} />
-          <Route path="/test" element={<Tests />} />
-          <Route path="/logs" element={<Logs />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="test" element={<Tests />} />
+          <Route path="logs" element={<Logs />} />
+          <Route path="signin" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </div>
