@@ -7,20 +7,6 @@ function Home() {
   const [modules, setModules] = useRecoilState(_modules);
   const [moduleDetails, setModuleDetails] = useState([]);
 
-  const fetchModules = () => {
-    fetch("/api/modules")
-      .then((response) => response.json())
-      .then((data) => {
-        setModuleDetails(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching modules:", error);
-      });
-  };
-
-  useEffect(() => {
-    fetchModules();
-  }, [modules]);
   return (
     <div>
       <h1>Connected Modules</h1>
