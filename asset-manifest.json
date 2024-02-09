@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/myAdminApp/static/css/main.77b869a9.css",
-    "main.js": "/myAdminApp/static/js/main.9131de95.js",
-    "static/js/592.7e045e85.chunk.js": "/myAdminApp/static/js/592.7e045e85.chunk.js",
-    "index.html": "/myAdminApp/index.html",
-    "main.77b869a9.css.map": "/myAdminApp/static/css/main.77b869a9.css.map",
-    "main.9131de95.js.map": "/myAdminApp/static/js/main.9131de95.js.map",
-    "592.7e045e85.chunk.js.map": "/myAdminApp/static/js/592.7e045e85.chunk.js.map"
+    "main.css": "/TamirBanay.github.io/myAdminApp/static/css/main.77b869a9.css",
+    "main.js": "/TamirBanay.github.io/myAdminApp/static/js/main.516a59f2.js",
+    "static/js/592.7e045e85.chunk.js": "/TamirBanay.github.io/myAdminApp/static/js/592.7e045e85.chunk.js",
+    "index.html": "/TamirBanay.github.io/myAdminApp/index.html",
+    "main.77b869a9.css.map": "/TamirBanay.github.io/myAdminApp/static/css/main.77b869a9.css.map",
+    "main.516a59f2.js.map": "/TamirBanay.github.io/myAdminApp/static/js/main.516a59f2.js.map",
+    "592.7e045e85.chunk.js.map": "/TamirBanay.github.io/myAdminApp/static/js/592.7e045e85.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.77b869a9.css",
-    "static/js/main.9131de95.js"
+    "static/js/main.516a59f2.js"
   ]
 }
