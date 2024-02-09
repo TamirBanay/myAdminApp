@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { _modules, _logs, _userIsLoggedIn } from "./services/atom";
 import { useRecoilState } from "recoil";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Logs from "./pages/Logs/Logs";
 import Tests from "./pages/Tests/Tests";
@@ -55,7 +55,8 @@ function App() {
 
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route path="/" element={<Navigate replace to="/signin" />} />
+          <Route exact path="/home" element={<Home />} />
           <Route path="test" element={<Tests />} />
           <Route path="logs" element={<Logs />} />
           <Route path="signin" element={<SignIn />} />

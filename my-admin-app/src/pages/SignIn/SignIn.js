@@ -67,7 +67,7 @@ export default function SignIn() {
         console.log("Authentication successful", responseData);
         setUserIsLogIn(true);
         localStorage.setItem("isLoggedIn", true);
-        navigate("/");
+        navigate("/home");
       } else {
         console.log("Authentication failed", responseData);
         alert("Login Failed: " + responseData.message);
