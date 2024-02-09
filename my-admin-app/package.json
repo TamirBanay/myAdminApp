@@ -1,8 +1,8 @@
 {
   "name": "my-admin-app",
   "version": "0.1.0",
-  "private": true,
   "homepage": "https://TamirBanay.github.io/myAdminApp",
+  "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
