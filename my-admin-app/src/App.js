@@ -53,7 +53,7 @@ function App() {
     <div>
       {userLogIn ? <Navbar /> : ""}
 
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="test" element={<Tests />} />
