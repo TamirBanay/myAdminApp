@@ -1,7 +1,7 @@
 {
   "name": "my-admin-app",
   "version": "0.1.0",
-  "homepage": "https://TamirBanay.github.io/myAdminApp",
+  "homepage": "https:TamirBanay.github.io/myAdminApp",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
