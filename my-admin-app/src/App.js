@@ -2,7 +2,13 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { _modules, _logs, _userIsLoggedIn } from "./services/atom";
 import { useRecoilState } from "recoil";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  HashRouter,
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Logs from "./pages/Logs/Logs";
 import Tests from "./pages/Tests/Tests";
@@ -52,19 +58,20 @@ function App() {
   return (
     <div>
       {/* {userLogIn ? */}
-      <Navbar />
       {/* : */}
       {/* ""} */}
 
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter>
+        <Navbar />
+
         <Routes>
           {/* <Route path="/" element={<Navigate replace to="/signin" />} /> */}
-          <Route exact path="/" element={<Home />} />
-          <Route path="test" element={<Tests />} />
-          <Route path="logs" element={<Logs />} />
-          <Route path="signin" element={<SignIn />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/test" element={<Tests />} />
+          <Route path="/logs" element={<Logs />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
