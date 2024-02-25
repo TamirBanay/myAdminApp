@@ -73,8 +73,8 @@ function Logs() {
               </td>
               <td>
                 {logs.map((log, logIndex) => {
-                  const datePart = log.timestamp.split("T")[0]; // Gets the date part before the 'T'
-                  const timePart = log.timestamp.split("T")[1].split("Z")[0]; // Gets the time part before the 'Z'
+                  const datePart = log.timestamp.split("T")[0];
+                  const timePart = log.timestamp.split("T")[1].split("Z")[0];
 
                   const timeParts = timePart.split(":");
                   const formattedTime =
