@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Logs.css"; // Ensure you have a Logs.css file for CSS
+import { _modules, _logs, _userIsLoggedIn } from "../../services/atom";
+import { useRecoilState } from "recoil";
 
 function Logs() {
   const [groupedLogs, setGroupedLogs] = useState({});
@@ -39,7 +41,7 @@ function Logs() {
     return logs.reduce((acc, log) => {
       if (log.macAddress && log.timestamp) {
         if (!acc[log.macAddress]) {
-          acc[log.macAddress] = { messages: [], lastSeen: new Date(0) }; // Set to epoch
+          acc[log.macAddress] = { messages: [], lastSeen: log.timestamp }; // Set to epoch
         }
         acc[log.macAddress].messages.push(log.log);
 
@@ -69,14 +71,10 @@ function Logs() {
               <td>{macAddress}</td>
               <td>
                 {data.messages.map((msg, msgIndex) => (
-                  <p key={msgIndex}>{msg}</p> // Use <p> or another appropriate element instead of <td> here
+                  <p key={msgIndex}>{msg}</p>
                 ))}
               </td>
-              <td>
-                {data.lastSeen
-                  ? new Date(data.lastSeen).toLocaleString()
-                  : "N/A"}
-              </td>
+              <td>{data.lastSeen}</td>
             </tr>
           ))}
         </tbody>
