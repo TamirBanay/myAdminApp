@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 
 function Logs() {
   const [groupedLogs, setGroupedLogs] = useState({});
+  const [logs, setLogs] = useRecoilState(_logs);
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -25,35 +26,29 @@ function Logs() {
         }
 
         const data = await response.json();
+        setLogs(data);
         const nonEmptyLogs = data.filter(
-          (log) => log && Object.keys(log).length > 0
+          (log) => log.log && log.log.trim() !== ""
         );
-        setGroupedLogs(groupLogsByMacAddress(nonEmptyLogs));
+        const grouped = groupLogsByMacAddress(nonEmptyLogs);
+        setGroupedLogs(grouped);
       } catch (error) {
         console.error("There was a problem fetching the logs:", error);
       }
     };
 
     fetchLogs();
-  }, [groupedLogs]);
+  }, []);
 
   function groupLogsByMacAddress(logs) {
     return logs.reduce((acc, log) => {
-      if (log.macAddress && log.timestamp) {
-        if (!acc[log.macAddress]) {
-          acc[log.macAddress] = { messages: [], lastSeen: log.timestamp }; // Set to epoch
-        }
-        acc[log.macAddress].messages.push(log.log);
-
-        const newTimestamp = new Date(log.timestamp);
-        if (newTimestamp > acc[log.macAddress].lastSeen) {
-          acc[log.macAddress].lastSeen = newTimestamp;
-        }
+      if (!acc[log.macAddress]) {
+        acc[log.macAddress] = [];
       }
+      acc[log.macAddress].push(log);
       return acc;
     }, {});
   }
-
   return (
     <div className="logs-container">
       <h1>Logs</h1>
@@ -66,15 +61,37 @@ function Logs() {
           </tr>
         </thead>
         <tbody>
-          {Object.entries(groupedLogs).map(([macAddress, data], index) => (
-            <tr key={macAddress}>
+          {Object.entries(groupedLogs).map(([macAddress, logs], index) => (
+            <tr key={index}>
               <td>{macAddress}</td>
               <td>
-                {data.messages.map((msg, msgIndex) => (
-                  <p key={msgIndex}>{msg}</p>
+                {logs.map((log, logIndex) => (
+                  <div className="masagge-colum" key={logIndex}>
+                    {log.log} <p />
+                  </div>
                 ))}
               </td>
-              <td>{data.lastSeen}</td>
+              <td>
+                {logs.map((log, logIndex) => {
+                  const datePart = log.timestamp.split("T")[0]; // Gets the date part before the 'T'
+                  const timePart = log.timestamp.split("T")[1].split("Z")[0]; // Gets the time part before the 'Z'
+
+                  const timeParts = timePart.split(":");
+                  const formattedTime =
+                    timeParts.length > 2
+                      ? `${timeParts[0]}:${timeParts[1]}:${
+                          timeParts[2].split(".")[0]
+                        }`
+                      : timePart;
+
+                  return (
+                    <div key={logIndex} className="timestamp">
+                      {datePart} {formattedTime}
+                      <p />
+                    </div>
+                  );
+                })}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -82,5 +99,4 @@ function Logs() {
     </div>
   );
 }
-
 export default Logs;
