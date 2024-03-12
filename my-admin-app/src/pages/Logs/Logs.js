@@ -73,23 +73,34 @@ function Logs() {
               </td>
               <td>
                 {logs.map((log, logIndex) => {
-                  const datePart = log.timestamp.split("T")[0];
-                  const timePart = log.timestamp.split("T")[1].split("Z")[0];
-
-                  const timeParts = timePart.split(":");
-                  const formattedTime =
-                    timeParts.length > 2
-                      ? `${timeParts[0]}:${timeParts[1]}:${
-                          timeParts[2].split(".")[0]
-                        }`
-                      : timePart;
-
-                  return (
-                    <div key={logIndex} className="timestamp">
-                      {datePart} {formattedTime}
-                      <p />
-                    </div>
-                  );
+                  // Check if log.timestamp exists before splitting
+                  if (log.timestamp) {
+                    const datePart = log.timestamp.split("T")[0];
+                    const timePartSplit = log.timestamp.split("T")[1]
+                      ? log.timestamp.split("T")[1].split("Z")[0]
+                      : "";
+                    const timeParts = timePartSplit.split(":");
+                    const formattedTime =
+                      timeParts.length > 2
+                        ? `${timeParts[0]}:${timeParts[1]}:${
+                            timeParts[2].split(".")[0]
+                          }`
+                        : timePartSplit;
+                    return (
+                      <div key={logIndex} className="timestamp">
+                        {datePart} {formattedTime}
+                        <p />
+                      </div>
+                    );
+                  } else {
+                    // Return something appropriate when log.timestamp is undefined
+                    return (
+                      <div key={logIndex} className="timestamp">
+                        Timestamp unavailable
+                        <p />
+                      </div>
+                    );
+                  }
                 })}
               </td>
             </tr>
