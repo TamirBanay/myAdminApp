@@ -14,5 +14,5 @@ export const _userIsLoggedIn = atom({
 });
 export const _timeToDesplayLogs = atom({
   key: "_timeToDesplayLogs",
-  default: "lastWeek",
+  default: "today",
 });
