@@ -12,3 +12,7 @@ export const _userIsLoggedIn = atom({
   key: "_userIsLoggedIn",
   default: localStorage.getItem("isLoggedIn") || false,
 });
+export const _timeToDesplayLogs = atom({
+  key: "_timeToDesplayLogs",
+  default: "lastWeek",
+});

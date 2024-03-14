@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import "./Logs.css"; // Ensure you have a Logs.css file for CSS
-import { _modules, _logs, _userIsLoggedIn } from "../../services/atom";
+import "./Logs.css";
+import {
+  _modules,
+  _logs,
+  _userIsLoggedIn,
+  _timeToDesplayLogs,
+} from "../../services/atom";
 import { useRecoilState } from "recoil";
+import Select from "../../components/Select/Select";
 
 function Logs() {
   const [groupedLogs, setGroupedLogs] = useState({});
   const [logs, setLogs] = useRecoilState(_logs);
-
+  const [timeToDesplayLogs, setTimeToDesplayLogs] =
+    useRecoilState(_timeToDesplayLogs);
   useEffect(() => {
     const fetchLogs = async () => {
       try {
@@ -25,12 +32,15 @@ function Logs() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
+        let data = await response.json();
+
+        data = data.filter((log) => log.log && log.log.trim() !== "");
+
+        data = filterLogsByTime(data, timeToDesplayLogs);
+
         setLogs(data);
-        const nonEmptyLogs = data.filter(
-          (log) => log.log && log.log.trim() !== ""
-        );
-        const grouped = groupLogsByMacAddress(nonEmptyLogs);
+
+        const grouped = groupLogsByMacAddress(data);
         setGroupedLogs(grouped);
       } catch (error) {
         console.error("There was a problem fetching the logs:", error);
@@ -38,7 +48,7 @@ function Logs() {
     };
 
     fetchLogs();
-  }, []);
+  }, [timeToDesplayLogs]);
 
   function groupLogsByMacAddress(logs) {
     return logs.reduce((acc, log) => {
@@ -49,9 +59,48 @@ function Logs() {
       return acc;
     }, {});
   }
+
+  function filterLogsByTime(logs, timeFilter) {
+    const now = new Date();
+    const yearNow = now.getUTCFullYear();
+    const monthNow = now.getUTCMonth();
+    const dayNow = now.getUTCDate();
+
+    return logs.filter((log) => {
+      if (!log.log || !log.timestamp) {
+        return false;
+      }
+
+      const [datePart] = log.timestamp.split("T");
+      const [year, month, day] = datePart.split("-").map(Number);
+      const logYear = year;
+      const logMonth = month - 1;
+      const logDay = day;
+
+      switch (timeFilter) {
+        case "today":
+          return (
+            logYear === yearNow && logMonth === monthNow && logDay === dayNow
+          );
+
+        case "lastWeek":
+          const oneWeekAgo = new Date(Date.UTC(yearNow, monthNow, dayNow - 7));
+          const logDate = new Date(Date.UTC(year, month - 1, day));
+          return logDate >= oneWeekAgo && logDate < now;
+
+        case "all":
+          return true;
+
+        default:
+          return false;
+      }
+    });
+  }
+
   return (
     <div className="logs-container">
       <h1>Logs</h1>
+      <Select />
       <table className="logs-table">
         <thead>
           <tr>
@@ -73,7 +122,6 @@ function Logs() {
               </td>
               <td>
                 {logs.map((log, logIndex) => {
-                  // Check if log.timestamp exists before splitting
                   if (log.timestamp) {
                     const datePart = log.timestamp.split("T")[0];
                     const timePartSplit = log.timestamp.split("T")[1]
@@ -93,7 +141,6 @@ function Logs() {
                       </div>
                     );
                   } else {
-                    // Return something appropriate when log.timestamp is undefined
                     return (
                       <div key={logIndex} className="timestamp">
                         Timestamp unavailable
