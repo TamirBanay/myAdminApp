@@ -99,62 +99,45 @@ function Logs() {
 
   return (
     <div className="logs-container">
-      <h1>Logs</h1>
-      <Select />
-
-      <table className="logs-table">
-        <thead>
-          <tr>
-            <td>MAC Address</td>
-            <td>Log Message</td>
-            <td>Last Seen</td>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(groupedLogs).map(([macAddress, logs], index) => (
-            <tr key={index}>
-              <td>{macAddress}</td>
-              <td>
-                {logs.map((log, logIndex) => (
-                  <div className="masagge-colum" key={logIndex}>
-                    {log.log} <p />
-                  </div>
-                ))}
-              </td>
-              <td>
-                {logs.map((log, logIndex) => {
-                  if (log.timestamp) {
-                    const datePart = log.timestamp.split("T")[0];
-                    const timePartSplit = log.timestamp.split("T")[1]
-                      ? log.timestamp.split("T")[1].split("Z")[0]
-                      : "";
-                    const timeParts = timePartSplit.split(":");
-                    const formattedTime =
-                      timeParts.length > 2
-                        ? `${timeParts[0]}:${timeParts[1]}:${
-                            timeParts[2].split(".")[0]
-                          }`
-                        : timePartSplit;
-                    return (
-                      <div key={logIndex} className="timestamp">
-                        {datePart} {formattedTime}
-                        <p />
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div key={logIndex} className="timestamp">
-                        Timestamp unavailable
-                        <p />
-                      </div>
-                    );
-                  }
-                })}
-              </td>
+      <Select /> <p />
+      <div className="logs-table-container">
+        <table className="logs-table">
+          <thead>
+            <tr>
+              <th>MAC Address</th>
+              <th>Log Message</th>
+              <th>Last Seen</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {Object.entries(groupedLogs).map(
+              ([macAddress, logs], index, array) =>
+                logs.map((log, logIndex) => (
+                  <tr
+                    key={`${index}-${logIndex}`}
+                    className={
+                      logIndex === logs.length - 1 && index !== array.length - 1
+                        ? "mac-separator"
+                        : ""
+                    }
+                  >
+                    <td className="mac-address">{macAddress}</td>
+                    <td className="log-message">
+                      <div className="message-column">{log.log}</div>
+                    </td>
+                    <td className="last-seen">
+                      <div className="timestamp">
+                        {log.timestamp.split("T")[0] +
+                          " " +
+                          log.timestamp.split("T")[1].split("Z")[0]}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

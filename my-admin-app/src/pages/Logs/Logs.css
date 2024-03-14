@@ -8,7 +8,7 @@
   text-align: left;
   padding: 8px;
   border-bottom: 1px solid #ddd;
-  max-width: 50px;
+  /* Removed max-width from here to apply it specifically where needed */
 }
 
 .logs-table tr:nth-child(even) {
@@ -16,22 +16,37 @@
 }
 
 .logs-table th {
-  background-color: #007bff;
-  color: white;
+  /* background-color: #007bff; */
+  color: rgb(0, 0, 0);
 }
 
-.logs-table td {
+/* Specific max-width settings for different columns if needed */
+.logs-table td.mac-address {
+  max-width: 150px; /* Adjust based on your needs */
+}
+
+.logs-table td.log-message {
   max-width: 300px; /* Or any other max-width */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.logs-table td.last-seen {
+  max-width: 200px; /* Adjust based on your needs */
+}
+
 .masagge-colum {
   display: flex;
   flex-wrap: wrap;
   word-break: break-word;
   white-space: normal;
 }
+/* Add this to your Logs.css */
+.mac-separator td {
+  border-bottom: 3px solid #000; /* Example: a thick black line */
+}
+
 @media (max-width: 768px) {
   .logs-table th,
   .logs-table td {
@@ -46,5 +61,14 @@
   /* Make table scrollable horizontally on small screens */
   .logs-table-container {
     overflow-x: auto;
+  }
+
+  /* Adjustments for mobile, ensuring content is readable and not clipped */
+  .logs-table td.log-message,
+  .logs-table td.last-seen {
+    max-width: none;
+    white-space: normal; /* Allow natural line breaks on smaller screens */
+    overflow: visible;
+    text-overflow: clip;
   }
 }
