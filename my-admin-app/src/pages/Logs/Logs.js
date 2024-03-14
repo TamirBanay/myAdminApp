@@ -101,6 +101,7 @@ function Logs() {
     <div className="logs-container">
       <h1>Logs</h1>
       <Select />
+
       <table className="logs-table">
         <thead>
           <tr>

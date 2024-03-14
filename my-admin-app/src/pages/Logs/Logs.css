@@ -32,3 +32,19 @@
   word-break: break-word;
   white-space: normal;
 }
+@media (max-width: 768px) {
+  .logs-table th,
+  .logs-table td {
+    padding: 4px; /* Smaller padding */
+    font-size: 14px; /* Smaller font size */
+  }
+
+  .logs-container {
+    padding: 10px; /* Adjust padding */
+  }
+
+  /* Make table scrollable horizontally on small screens */
+  .logs-table-container {
+    overflow-x: auto;
+  }
+}
