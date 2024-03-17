@@ -14,36 +14,30 @@ function Logs() {
   const [logs, setLogs] = useRecoilState(_logs);
   const [timeToDesplayLogs, setTimeToDesplayLogs] =
     useRecoilState(_timeToDesplayLogs);
+
   useEffect(() => {
     const fetchLogs = async () => {
       try {
         const response = await fetch(
-          "https://logs-foem.onrender.com/api/logs",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({}),
-          }
+          "https://logs-foem.onrender.com/api/getLogs"
         );
-
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(
+            `Network response was not ok, status: ${response.status}`
+          );
         }
 
         let data = await response.json();
-
         data = data.filter((log) => log.log && log.log.trim() !== "");
-
         data = filterLogsByTime(data, timeToDesplayLogs);
-
         setLogs(data);
-
         const grouped = groupLogsByMacAddress(data);
         setGroupedLogs(grouped);
       } catch (error) {
-        console.error("There was a problem fetching the logs:", error);
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
       }
     };
 
