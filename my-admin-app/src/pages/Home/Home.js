@@ -40,23 +40,31 @@ function Home() {
 
     fetchModules();
   }, []);
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return "Unavailable";
+    const splitTimestamp = timestamp.split("T");
+    const date = splitTimestamp[0];
+    const time = splitTimestamp[1]
+      ? splitTimestamp[1].split("Z")[0]
+      : "Unavailable";
+    return `${date} ${time}`;
+  };
+
   return (
     <div>
       <h1>Connected Modules</h1>
       <div id="modulesInfo">
         {modules.map((details, index) => (
           <div key={index} className="module">
-            <strong>Module Name:</strong> {details.moduleName}
+            <strong>Module Name:</strong>{" "}
+            {details.moduleName || "Not Available"}
             <br />
-            <strong>Ip Address:</strong> {details.ipAddress || "Not Available"}
+            <strong>IP Address:</strong> {details.ipAddress || "Not Available"}
             <br />
             <strong>Mac Address:</strong>{" "}
             {details.macAddress || "Not Available"}
             <br />
-            <strong>Last Seen:</strong>{" "}
-            {details.timestamp.split("T")[0] +
-              " " +
-              details.timestamp.split("T")[1].split("Z")[0]}
+            <strong>Last Seen:</strong> {formatTimestamp(details.timestamp)}
           </div>
         ))}
       </div>
