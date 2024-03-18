@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import { useRecoilState } from "recoil";
-import { _modules, _logs } from "../../services/atom";
+import { _modules } from "../../services/atom";
 
 function Home() {
   const [modules, setModules] = useRecoilState(_modules);
@@ -39,24 +39,31 @@ function Home() {
     };
 
     fetchModules();
-  }, []);
+  }, [setModules]); // Add setModules to the dependency array if it can change over time
+
   return (
     <div>
       <h1>Connected Modules</h1>
       <div id="modulesInfo">
-        {modules.map((details, index) => (
-          <div key={index} className="module">
-            <strong>Module Name:</strong> {details.moduleName}
-            <br />
-            <strong>Ip Address:</strong> {details.ipAddress || "Not Available"}
-            <br />
-            <strong>Mac Address:</strong>{" "}
-            {details.macAddress || "Not Available"}
-            <br />
-            <strong>Last Seen:</strong>{" "}
-            {new Date(details.timestamp).toLocaleString()}
-          </div>
-        ))}
+        {modules.map((details, index) => {
+          const date = new Date(details.timestamp);
+          const lastSeen = isNaN(date.getTime())
+            ? "Invalid timestamp"
+            : date.toLocaleString();
+          return (
+            <div key={index} className="module">
+              <strong>Module Name:</strong> {details.moduleName}
+              <br />
+              <strong>IP Address:</strong>{" "}
+              {details.ipAddress || "Not Available"}
+              <br />
+              <strong>Mac Address:</strong>{" "}
+              {details.macAddress || "Not Available"}
+              <br />
+              <strong>Last Seen:</strong> {lastSeen}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

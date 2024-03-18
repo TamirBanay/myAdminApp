@@ -16,9 +16,6 @@ import Navbar from "./components/Navbar/Navbar";
 import SignIn from "./pages/SignIn/SignIn";
 
 function App() {
-  const [logs, setLogs] = useRecoilState(_logs);
-
-
   return (
     <div>
 
