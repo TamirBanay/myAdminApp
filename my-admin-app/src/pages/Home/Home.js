@@ -53,7 +53,10 @@ function Home() {
             <strong>Mac Address:</strong>{" "}
             {details.macAddress || "Not Available"}
             <br />
-            <strong>Last Seen:</strong> {details.timestamp}
+            <strong>Last Seen:</strong>{" "}
+            {details.timestamp.split("T")[0] +
+              " " +
+              details.timestamp.split("T")[1].split("Z")[0]}
           </div>
         ))}
       </div>
