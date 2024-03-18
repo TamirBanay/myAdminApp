@@ -39,7 +39,7 @@ function Home() {
     };
 
     fetchModules();
-  }, []);
+  }, [modules.moduleName]);
   return (
     <div>
       <h1>Connected Modules</h1>
