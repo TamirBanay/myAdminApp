@@ -9,8 +9,11 @@ function Home() {
   useEffect(() => {
     const fetchModules = async () => {
       try {
-        const response = await fetch("https://logs-foem.onrender.com/api/getModuels");
+        const response = await fetch(
+          "https://logs-foem.onrender.com/api/getModuels"
+        );
         if (!response.ok) {
+          console.error("Response: ", response);
           throw new Error(
             `Network response was not ok, status: ${response.status}`
           );
