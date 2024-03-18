@@ -115,7 +115,11 @@ function Logs() {
                         : ""
                     }
                   >
-                    <td className="mac-address">{macAddress}</td>
+                    <td className="mac-address">
+                      {macAddress}
+                      <br />
+                      {logs.moduleName}
+                    </td>
                     <td className="log-message">
                       <div className="message-column">{log.log}</div>
                     </td>
