@@ -22,6 +22,7 @@ function Home() {
         const data = await response.json();
         if (Array.isArray(data)) {
           setModules(data);
+          console.log(data);
         } else if (typeof data === "object") {
           setModules(Object.values(data));
         } else {
@@ -39,7 +40,7 @@ function Home() {
     };
 
     fetchModules();
-  }, [modules.moduleName]);
+  }, []);
   return (
     <div>
       <h1>Connected Modules</h1>
