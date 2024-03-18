@@ -5,7 +5,6 @@ import { _modules, _logs } from "../../services/atom";
 
 function Home() {
   const [modules, setModules] = useRecoilState(_modules);
-  const [shouldUpdateModules, setShouldUpdateModules] = useState(false);
 
   useEffect(() => {
     const fetchModules = async () => {
@@ -39,13 +38,8 @@ function Home() {
       }
     };
 
-    if (shouldUpdateModules) {
-      fetchModules();
-    }
-
-    // Reset the flag after fetching
-    return () => setShouldUpdateModules(false);
-  }, [shouldUpdateModules]); // Depend on the flag
+    fetchModules();
+  }, []);
   return (
     <div>
       <h1>Connected Modules</h1>
