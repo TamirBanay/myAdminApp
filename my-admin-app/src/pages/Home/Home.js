@@ -55,7 +55,7 @@ function Home() {
             {details.macAddress || "Not Available"}
             <br />
             <strong>Last Seen:</strong>{" "}
-            {new Date(details.lastSeen).toLocaleString()}
+            {new Date(details.timestamp).toLocaleString()}
           </div>
         ))}
       </div>
