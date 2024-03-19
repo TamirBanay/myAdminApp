@@ -9,7 +9,7 @@ function Home() {
   useEffect(() => {
     const fetchModules = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/getModuels");
+        const response = await fetch("https://logs-foem.onrender.com/api/getModuels");
         if (!response.ok) {
           console.error("Response: ", response);
           throw new Error(
