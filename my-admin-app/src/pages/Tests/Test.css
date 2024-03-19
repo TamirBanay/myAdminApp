@@ -58,3 +58,11 @@
   border-left-color: #007bff;
   animation: spin 1s linear infinite;
 }
+.ModuleName-test {
+  /* background-color: #0056b3; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}

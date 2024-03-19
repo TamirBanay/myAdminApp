@@ -5,12 +5,15 @@ import "./Test.css";
 import Loading from "../../components/loading/Loading";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import CloseIcon from "@mui/icons-material/Close";
+import Badge from "@mui/material/Badge";
+
 function Tests() {
   const [modules, setModules] = useRecoilState(_modules);
   const [pingResults, setPingResults] = useState({});
   const [loadingMacAddress, setLoadingMacAddress] = useState(null);
   const [error, setError] = useState("");
   const [testType, setTestType] = useState("");
+  const [connectionStatus, setConnectionStatus] = useState({}); // New state for connection status
 
   const pingModulesWithMacAddress = async (macAddress, testType) => {
     setLoadingMacAddress(macAddress); // Show loading indicator
@@ -63,13 +66,57 @@ function Tests() {
     }
   };
 
+  useEffect(() => {
+    // Function to fetch connection status for all modules
+    const fetchConnectionStatus = async () => {
+      modules.forEach(async (module) => {
+        try {
+          const response = await fetch(
+            `https://logs-foem.onrender.com/api/moduleIsConnectIndicator/${module.macAddress}`
+          );
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const data = await response.json();
+          setConnectionStatus((prevStatus) => ({
+            ...prevStatus,
+            [module.macAddress]: data.isConnected, // Assuming your API returns { isConnected: true/false }
+          }));
+        } catch (error) {
+          console.error(
+            `Error fetching connection status for ${module.macAddress}:`,
+            error
+          );
+        }
+      });
+    };
+
+    fetchConnectionStatus();
+
+    // Optional: Set an interval to periodically refresh the connection status
+    const intervalId = setInterval(fetchConnectionStatus, 10000); // Refresh every 10 seconds
+
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [modules]);
+
   return (
     <div>
       <div>
         {modules.map((module, index) => (
           <div className="Test-module" key={index}>
             <div className="Test-module-details">
-              <strong>Module Name: {module.moduleName}</strong>
+              <strong className="ModuleName-test">
+                Module Name: {module.moduleName}
+                <Badge
+                  sx={{ right: "10px" }}
+                  badgeContent={""}
+                  color={
+                    connectionStatus[module.macAddress] ? "success" : "error"
+                  }
+                  variant="dot"
+                />
+              </strong>
               <br />
               <strong>Ip Address: {module.ipAddress || "Not Available"}</strong>
               <br />
