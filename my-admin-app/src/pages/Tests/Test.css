@@ -19,7 +19,7 @@
 
 .button-and-loading {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 14px; /* Adjusts space between button and loading indicator */
 }
@@ -65,4 +65,11 @@
   justify-content: space-between;
   align-items: center;
   gap: 14px;
+}
+.badge-div {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

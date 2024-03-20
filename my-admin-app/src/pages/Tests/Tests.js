@@ -18,6 +18,7 @@ function Tests() {
 
   const pingModulesWithMacAddress = async (macAddress, testType) => {
     setLoadingMacAddress(macAddress);
+
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -106,14 +107,16 @@ function Tests() {
             <div className="Test-module-details">
               <strong className="ModuleName-test">
                 Module Name: {module.moduleName}
-                <Badge
-                  sx={{ right: "10px" }}
-                  badgeContent={""}
-                  color={
-                    connectionStatus[module.macAddress] ? "success" : "error"
-                  }
-                  variant="dot"
-                />
+                <div className="badge-div">
+                  <Badge
+                    // sx={{ right: "10px" }}
+                    badgeContent={""}
+                    color={
+                      connectionStatus[module.macAddress] ? "success" : "error"
+                    }
+                    variant="dot"
+                  />
+                </div>
               </strong>
               <br />
               <strong>Ip Address: {module.ipAddress || "Not Available"}</strong>

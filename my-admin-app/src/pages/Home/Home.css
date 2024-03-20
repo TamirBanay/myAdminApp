@@ -16,7 +16,9 @@ body {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
+.Home-title {
+  text-align: center;
+}
 .back-button {
   display: block;
   width: 150px;

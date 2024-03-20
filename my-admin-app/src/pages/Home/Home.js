@@ -53,7 +53,6 @@ function Home() {
 
   return (
     <div>
-      <h1>Connected Modules</h1>
       <div id="modulesInfo">
         {modules.map((details, index) => (
           <div key={index} className="module">
