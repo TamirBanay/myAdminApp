@@ -9,7 +9,9 @@ function Home() {
   useEffect(() => {
     const fetchModules = async () => {
       try {
-        const response = await fetch("https://logs-foem.onrender.com/api/getModuels");
+        const response = await fetch(
+          "https://logs-foem.onrender.com/api/getModuels"
+        );
         if (!response.ok) {
           console.error("Response: ", response);
           throw new Error(
@@ -20,6 +22,7 @@ function Home() {
         const data = await response.json();
         if (Array.isArray(data)) {
           setModules(data);
+          localStorage.setItem("modules", JSON.stringify(data));
         } else if (typeof data === "object") {
           setModules(Object.values(data));
         } else {
@@ -54,7 +57,6 @@ function Home() {
       <div id="modulesInfo">
         {modules.map((details, index) => (
           <div key={index} className="module">
-         
             <strong>Module Name:</strong>{" "}
             {details.moduleName || "Not Available"}
             <br />

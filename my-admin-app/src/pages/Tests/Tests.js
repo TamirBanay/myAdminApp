@@ -8,15 +8,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import Badge from "@mui/material/Badge";
 
 function Tests() {
-  const [modules, setModules] = useRecoilState(_modules);
   const [pingResults, setPingResults] = useState({});
   const [loadingMacAddress, setLoadingMacAddress] = useState(null);
   const [error, setError] = useState("");
   const [testType, setTestType] = useState("");
   const [connectionStatus, setConnectionStatus] = useState({}); // New state for connection status
+  const modulesLocalStorage = localStorage.getItem("modules");
+  const modules = modulesLocalStorage ? JSON.parse(modulesLocalStorage) : [];
 
   const pingModulesWithMacAddress = async (macAddress, testType) => {
-    setLoadingMacAddress(macAddress); // Show loading indicator
+    setLoadingMacAddress(macAddress);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -67,7 +68,6 @@ function Tests() {
   };
 
   useEffect(() => {
-    // Function to fetch connection status for all modules
     const fetchConnectionStatus = async () => {
       modules.forEach(async (module) => {
         try {
@@ -80,7 +80,7 @@ function Tests() {
           const data = await response.json();
           setConnectionStatus((prevStatus) => ({
             ...prevStatus,
-            [module.macAddress]: data.isConnected, // Assuming your API returns { isConnected: true/false }
+            [module.macAddress]: data.isConnected,
           }));
         } catch (error) {
           console.error(
@@ -93,12 +93,10 @@ function Tests() {
 
     fetchConnectionStatus();
 
-    // Optional: Set an interval to periodically refresh the connection status
-    const intervalId = setInterval(fetchConnectionStatus, 10000); // Refresh every 10 seconds
+    const intervalId = setInterval(fetchConnectionStatus, 10000);
 
-    // Cleanup function to clear the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, [modules]);
+  }, []);
 
   return (
     <div>
@@ -158,7 +156,7 @@ function Tests() {
               {loadingMacAddress === module.macAddress ? (
                 <div className="pingMassage">
                   <Loading />
-                </div> // Show loading indicator for the current module
+                </div>
               ) : pingResults.macAddress === module.macAddress ? (
                 <div className="pingMassage">
                   <DoneOutlineIcon color="success" fontSize="large" />
