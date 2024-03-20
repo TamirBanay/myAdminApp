@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./Logs.css";
-import {
-  _modules,
-  _logs,
-  _userIsLoggedIn,
-  _timeToDesplayLogs,
-} from "../../services/atom";
+import { _timeToDesplayLogs } from "../../services/atom";
 import { useRecoilState } from "recoil";
 import Select from "../../components/Select/Select";
 
-function Logs() {
+export function Logs() {
   const [groupedLogs, setGroupedLogs] = useState({});
-  const [logsData, setLogs] = useRecoilState(_logs);
+  // const [logs, setLogs] = useRecoilState(_logs);
   const [timeToDesplayLogs, setTimeToDesplayLogs] =
     useRecoilState(_timeToDesplayLogs);
   const LocalStoragelogs = localStorage.getItem("logs");
-  const logs = LocalStoragelogs ? JSON.parse(LocalStoragelogs) : [];
+  const logs = modulesLocalStorage ? JSON.parse(LocalStoragelogs) : [];
   useEffect(() => {
     const fetchLogs = async () => {
       try {
@@ -44,10 +38,6 @@ function Logs() {
     };
 
     fetchLogs();
-
-    const intervalId = setInterval(fetchLogs, 30000);
-
-    return () => clearInterval(intervalId);
   }, [timeToDesplayLogs]);
 
   function groupLogsByMacAddress(logs) {
@@ -145,4 +135,3 @@ function Logs() {
     </div>
   );
 }
-export default Logs;
