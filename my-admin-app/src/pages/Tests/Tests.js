@@ -94,7 +94,7 @@ function Tests() {
 
     fetchConnectionStatus();
 
-    const intervalId = setInterval(fetchConnectionStatus, 10000);
+    const intervalId = setInterval(fetchConnectionStatus, 60000);
 
     return () => clearInterval(intervalId);
   }, []);
