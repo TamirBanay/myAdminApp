@@ -19,7 +19,7 @@
 
 .button-and-loading {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: 14px; /* Adjusts space between button and loading indicator */
 }
