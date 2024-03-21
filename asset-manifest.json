@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/myAdminApp/static/css/main.383fc0d5.css",
-    "main.js": "/myAdminApp/static/js/main.b2eaa70d.js",
+    "main.js": "/myAdminApp/static/js/main.b7c677d4.js",
     "static/js/592.7e045e85.chunk.js": "/myAdminApp/static/js/592.7e045e85.chunk.js",
     "index.html": "/myAdminApp/index.html",
     "main.383fc0d5.css.map": "/myAdminApp/static/css/main.383fc0d5.css.map",
-    "main.b2eaa70d.js.map": "/myAdminApp/static/js/main.b2eaa70d.js.map",
+    "main.b7c677d4.js.map": "/myAdminApp/static/js/main.b7c677d4.js.map",
     "592.7e045e85.chunk.js.map": "/myAdminApp/static/js/592.7e045e85.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.383fc0d5.css",
-    "static/js/main.b2eaa70d.js"
+    "static/js/main.b7c677d4.js"
   ]
 }
