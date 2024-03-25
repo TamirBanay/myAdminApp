@@ -27,7 +27,7 @@ function Tests() {
 
     try {
       const response = await fetch(
-        "https://logs-foem.onrender.com/api/pingModule",
+        "https://alerm-api-9ededfd9b760.herokuapp.com/api/pingModule",
         requestOptions
       );
 
@@ -51,7 +51,7 @@ function Tests() {
   const fetchPongMessage = async () => {
     try {
       const response = await fetch(
-        "https://logs-foem.onrender.com/api/pongReceivedFromModule"
+        "https://alerm-api-9ededfd9b760.herokuapp.com/api/pongReceivedFromModule"
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -73,7 +73,7 @@ function Tests() {
       modules.forEach(async (module) => {
         try {
           const response = await fetch(
-            `https://logs-foem.onrender.com/api/moduleIsConnectIndicator/${module.macAddress}`
+            `https://alerm-api-9ededfd9b760.herokuapp.com/api/moduleIsConnectIndicator/${module.macAddress}`
           );
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);

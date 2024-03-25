@@ -20,7 +20,7 @@ function Logs() {
     const fetchLogs = async () => {
       try {
         const response = await fetch(
-          "https://logs-foem.onrender.com/api/getLogs"
+          "https://alerm-api-9ededfd9b760.herokuapp.com/api/getLogs"
         );
         if (!response.ok) {
           throw new Error(
