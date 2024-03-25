@@ -10,7 +10,7 @@ function Home() {
     const fetchModules = async () => {
       try {
         const response = await fetch(
-          "https://alerm-api-9ededfd9b760.herokuapp.com/getModuels"
+          "https://alerm-api-9ededfd9b760.herokuapp.com/api/getModuels"
         );
         if (!response.ok) {
           console.error("Response: ", response);
