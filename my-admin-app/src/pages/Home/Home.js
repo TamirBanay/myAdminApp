@@ -64,6 +64,9 @@ function Home() {
             <strong>Mac Address:</strong>{" "}
             {details.macAddress || "Not Available"}
             <br />
+            <strong>Version:</strong>{" "}
+            {details.version || "Not Available"}
+            <br />
             <strong>Last Seen:</strong> {formatTimestamp(details.timestamp)}
           </div>
         ))}

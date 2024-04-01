@@ -124,6 +124,8 @@ function Tests() {
               <strong>
                 Mac Address: {module.macAddress || "Not Available"}
               </strong>
+              <br />
+              <strong>Version: {module.version || "Not Available"} </strong>
             </div>
             <div className="button-and-loading">
               <button
