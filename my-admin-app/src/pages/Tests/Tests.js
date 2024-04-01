@@ -152,6 +152,16 @@ function Tests() {
                 className="button"
                 disabled={loadingMacAddress === module.macAddress}
                 onClick={() => {
+                  setTestType("Update");
+                  pingModulesWithMacAddress(module.macAddress, "Update");
+                }}
+              >
+                Reset Module
+              </button>
+              <button
+                className="button"
+                disabled={loadingMacAddress === module.macAddress}
+                onClick={() => {
                   setTestType("LedTest");
                   pingModulesWithMacAddress(module.macAddress, "Reset");
                 }}
