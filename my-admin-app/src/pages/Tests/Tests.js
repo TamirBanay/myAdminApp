@@ -156,7 +156,7 @@ function Tests() {
                   pingModulesWithMacAddress(module.macAddress, "Update");
                 }}
               >
-                UIpdate Firmware 
+                Update Firmware 
               </button>
               <button
                 className="button"
