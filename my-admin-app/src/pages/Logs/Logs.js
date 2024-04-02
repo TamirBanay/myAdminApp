@@ -112,7 +112,7 @@ function Logs() {
           <tbody>
             {Object.entries(groupedLogs).map(
               ([macAddress, logs], index, array) =>
-                logs.map((log, logIndex) => (
+                logs.reverse().map((log, logIndex) => (
                   <tr
                     key={`${index}-${logIndex}`}
                     className={
