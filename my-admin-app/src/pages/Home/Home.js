@@ -68,7 +68,8 @@ function Home() {
             <br />
             <strong>Last Seen:</strong> {formatTimestamp(details.timestamp)}
             <br />
-            <strong>Is updated:</strong> {details.isUpdated || "Not Available"}
+            <strong>Is updated:</strong>{" "}
+            {details.isUpdated ? "Yes" : "Not" || "Not Available"}
           </div>
         ))}
       </div>

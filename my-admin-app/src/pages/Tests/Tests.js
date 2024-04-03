@@ -118,16 +118,15 @@ function Tests() {
                   />
                 </div>
               </strong>
-              <br />
               <strong>Ip Address: {module.ipAddress || "Not Available"}</strong>
-              <br />
               <strong>
                 Mac Address: {module.macAddress || "Not Available"}
               </strong>
-              <br />
               <strong>Version: {module.version || "Not Available"} </strong>
-              <br />
-              <strong>Version: {module.isUpdated || "Not Available"} </strong>
+              <strong>
+                Is updated:{" "}
+                {module.isUpdated ? "Yes" : "Not" || "Not Available"}{" "}
+              </strong>
             </div>
             <div className="button-and-loading">
               <button
