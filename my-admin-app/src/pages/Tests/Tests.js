@@ -126,6 +126,8 @@ function Tests() {
               </strong>
               <br />
               <strong>Version: {module.version || "Not Available"} </strong>
+              <br />
+              <strong>Version: {module.isUpdated || "Not Available"} </strong>
             </div>
             <div className="button-and-loading">
               <button
@@ -150,7 +152,9 @@ function Tests() {
               </button>
               <button
                 className="button"
-                disabled={loadingMacAddress === module.macAddress}
+                disabled={
+                  loadingMacAddress === module.macAddress || module.isUpdated
+                }
                 onClick={() => {
                   setTestType("Update");
                   pingModulesWithMacAddress(module.macAddress, "Update");

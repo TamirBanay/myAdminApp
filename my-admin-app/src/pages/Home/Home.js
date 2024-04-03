@@ -50,7 +50,7 @@ function Home() {
       : "Unavailable";
     return `${date} ${time}`;
   };
-
+  console.log(modules);
   return (
     <div>
       <div id="modulesInfo">
@@ -64,10 +64,11 @@ function Home() {
             <strong>Mac Address:</strong>{" "}
             {details.macAddress || "Not Available"}
             <br />
-            <strong>Version:</strong>{" "}
-            {details.version || "Not Available"}
+            <strong>Version:</strong> {details.version || "Not Available"}
             <br />
             <strong>Last Seen:</strong> {formatTimestamp(details.timestamp)}
+            <br />
+            <strong>Is updated:</strong> {details.isUpdated || "Not Available"}
           </div>
         ))}
       </div>
