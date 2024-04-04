@@ -12,6 +12,8 @@ function Tests() {
   const [loadingMacAddress, setLoadingMacAddress] = useState(null);
   const [error, setError] = useState("");
   const [testType, setTestType] = useState("");
+  const [lastVersion, setLastVersion] = useState("");
+
   const [connectionStatus, setConnectionStatus] = useState({}); // New state for connection status
   const modulesLocalStorage = localStorage.getItem("modules");
   const modules = modulesLocalStorage ? JSON.parse(modulesLocalStorage) : [];
@@ -57,7 +59,6 @@ function Tests() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-
       if (data.message.includes("sucsses")) {
         setPingResults(data);
       } else {
@@ -99,6 +100,21 @@ function Tests() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const fetchLastVersion = async () => {
+    try {
+      const response = await fetch(
+        "https://alerm-api-9ededfd9b760.herokuapp.com/api/getLastVersion"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      setLastVersion(data.lastVersion);
+    } catch (error) {
+      console.error("Could not fetch last version:", error);
+    }
+  };
+  fetchLastVersion();
   return (
     <div>
       <div>
@@ -109,7 +125,6 @@ function Tests() {
                 Module Name: {module.moduleName}
                 <div className="badge-div">
                   <Badge
-                    // sx={{ right: "10px" }}
                     badgeContent={""}
                     color={
                       connectionStatus[module.macAddress] ? "success" : "error"
@@ -123,10 +138,6 @@ function Tests() {
                 Mac Address: {module.macAddress || "Not Available"}
               </strong>
               <strong>Version: {module.version || "Not Available"} </strong>
-              <strong>
-                Is updated:{" "}
-                {module.isUpdated ? "Yes" : "Not" || "Not Available"}{" "}
-              </strong>
             </div>
             <div className="button-and-loading">
               <button
@@ -152,7 +163,8 @@ function Tests() {
               <button
                 className="button"
                 disabled={
-                  loadingMacAddress === module.macAddress || module.isUpdated
+                  loadingMacAddress === module.macAddress ||
+                  lastVersion === module.version // Assuming lastVersion should be compared with module.version
                 }
                 onClick={() => {
                   setTestType("Update");
