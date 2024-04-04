@@ -38,8 +38,6 @@ function Tests() {
       }
 
       const data = await response.json();
-
-      console.log("Ping response:", data);
       setTimeout(() => {
         fetchPongMessage();
         setLoadingMacAddress(null);
@@ -100,21 +98,23 @@ function Tests() {
     return () => clearInterval(intervalId);
   }, []);
 
-  const fetchLastVersion = async () => {
-    try {
-      const response = await fetch(
-        "https://alerm-api-9ededfd9b760.herokuapp.com/api/getLastVersion"
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+  useEffect(() => {
+    const fetchLastVersion = async () => {
+      try {
+        const response = await fetch(
+          "https://alerm-api-9ededfd9b760.herokuapp.com/api/getLastVersion"
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setLastVersion(data.lastVersion);
+      } catch (error) {
+        console.error("Could not fetch last version:", error);
       }
-      const data = await response.json();
-      setLastVersion(data.lastVersion);
-    } catch (error) {
-      console.error("Could not fetch last version:", error);
-    }
-  };
-  fetchLastVersion();
+    };
+    fetchLastVersion();
+  }, [lastVersion]);
   return (
     <div>
       <div>
