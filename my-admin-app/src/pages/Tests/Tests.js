@@ -160,6 +160,17 @@ function Tests() {
               >
                 Test LEDs
               </button>
+
+              <button
+                className="button"
+                disabled={loadingMacAddress === module.macAddress}
+                onClick={() => {
+                  setTestType("LedTest");
+                  pingModulesWithMacAddress(module.macAddress, "Reset");
+                }}
+              >
+                Reset Module
+              </button>
               <button
                 className="button"
                 disabled={
@@ -172,16 +183,6 @@ function Tests() {
                 }}
               >
                 Update Firmware
-              </button>
-              <button
-                className="button"
-                disabled={loadingMacAddress === module.macAddress}
-                onClick={() => {
-                  setTestType("LedTest");
-                  pingModulesWithMacAddress(module.macAddress, "Reset");
-                }}
-              >
-                Reset Module
               </button>
               {loadingMacAddress === module.macAddress ? (
                 <div className="pingMassage">
