@@ -8,6 +8,7 @@ import {
 } from "../../services/atom";
 import { useRecoilState } from "recoil";
 import Select from "../../components/Select/Select";
+import ButtonUp from "../../components/ButtonUp/ButtonUp";
 
 function Logs() {
   const [groupedLogs, setGroupedLogs] = useState({});
@@ -152,6 +153,7 @@ function Logs() {
           </tbody>
         </table>
       </div>
+      <ButtonUp />
     </div>
   );
 }
