@@ -19,7 +19,7 @@
 }
 
 .logs-table td.mac-address {
-  max-width: 150px; 
+  max-width: 150px;
 }
 
 .logs-table td.log-message {
@@ -40,14 +40,15 @@
   white-space: normal;
 }
 .mac-separator td {
-  border-bottom: 3px solid #000; 
+  border-bottom: 3px solid #000;
 }
 
 @media (max-width: 768px) {
   .logs-table th,
   .logs-table td {
-    padding: 4px; 
-    font-size: 14px; 
+    padding: 4px;
+    font-size: 14px;
+    text-align: center;
   }
 
   .logs-container {
@@ -57,12 +58,24 @@
   .logs-table-container {
     overflow-x: auto;
   }
-
+  .redTextForAlert {
+    color: red;
+    font-weight: 500;
+    text-align: center;
+  }
+  .greenTextForConnection {
+    color: green;
+    text-align: center;
+  }
+  .message-column {
+    text-align: center;
+  }
   .logs-table td.log-message,
   .logs-table td.last-seen {
     max-width: none;
-    white-space: normal; 
+    white-space: normal;
     overflow: visible;
     text-overflow: clip;
+    text-align: center;
   }
 }

@@ -112,7 +112,7 @@ function Logs() {
           <tbody>
             {Object.entries(groupedLogs).map(
               ([macAddress, logs], index, array) =>
-                logs.reverse().map((log, logIndex) => (
+                [...logs].reverse().map((log, logIndex) => (
                   <tr
                     key={`${index}-${logIndex}`}
                     className={
@@ -127,7 +127,17 @@ function Logs() {
                       {log.moduleName}
                     </td>
                     <td className="log-message">
-                      <div className="message-column">{log.log}</div>
+                      <div
+                        className={
+                          log.log.startsWith("alerm active ")
+                            ? "redTextForAlert"
+                            : log.log.startsWith("module is connected")
+                            ? "greenTextForConnection"
+                            : "message-column"
+                        }
+                      >
+                        {log.log}
+                      </div>
                     </td>
                     <td className="last-seen">
                       <div className="timestamp">
