@@ -66,7 +66,12 @@ function Home() {
             <br />
             <strong>Last Seen:</strong> {formatTimestamp(details.timestamp)}
             <br />
-            <strong>Cities:</strong> {details.targetCities || "Not Available"}
+            <strong>Cities:</strong>{" "}
+            {details.targetCities && details.targetCities.length > 0
+              ? details.targetCities
+                  .filter((city) => city.trim() !== "")
+                  .join(", ")
+              : "Not Available"}
             <br />
           </div>
         ))}
