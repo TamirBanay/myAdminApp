@@ -5,7 +5,7 @@ import { _modules, _logs } from "../../services/atom";
 
 function Home() {
   const [modules, setModules] = useRecoilState(_modules);
-
+  console.log(modules);
   useEffect(() => {
     const fetchModules = async () => {
       try {
@@ -66,6 +66,8 @@ function Home() {
             <strong>Version:</strong> {details.version || "Not Available"}
             <br />
             <strong>Last Seen:</strong> {formatTimestamp(details.timestamp)}
+            <br />
+            <strong>Cities:</strong> {details.targetCities || "Not Available"}
             <br />
           </div>
         ))}
