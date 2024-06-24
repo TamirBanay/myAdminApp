@@ -31,7 +31,6 @@ function Tests() {
   const handleOpenCloseCitiesList = (macAddress) => {
     setCityListIsOpen(!citiesListIsOpen);
     setTheCurrentMacAddress(macAddress);
-    console.log("mac:" + theCurrentMacAddress);
   };
 
   const pingModulesWithMacAddress = async (macAddress, testType) => {

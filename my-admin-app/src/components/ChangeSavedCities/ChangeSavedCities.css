@@ -6,6 +6,10 @@
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  /* justify-items: center; */
+  align-items: center;
 }
 
 .change-saved-cities h1 {
@@ -15,7 +19,7 @@
 }
 
 .search-input {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
@@ -24,6 +28,8 @@
 }
 
 .cities-list {
+  width: 90%;
+
   display: flex;
   flex-direction: column;
   max-height: 400px;
@@ -38,7 +44,8 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  justify-content: flex-end;
+  justify-content: flex;
+  direction: rtl;
 }
 
 .city-item input[type="checkbox"] {
@@ -51,9 +58,10 @@
   color: #555;
 }
 
-.save-button {
+.save-button,
+.close-button {
   display: block;
-  width: 100%;
+  width: 40%;
   padding: 10px;
   margin-top: 20px;
   background-color: #007bff;
@@ -67,4 +75,10 @@
 
 .save-button:hover {
   background-color: #0056b3;
+}
+.buttons-save-and-close {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
 }

@@ -20,6 +20,10 @@ function ChangeSavedCities({ changeCities }) {
     _theCurrentMacAddress
   );
 
+  const handleOpenCloseCitiesList = () => {
+    setCityListIsOpen(!citiesListIsOpen);
+  };
+
   const fetchCitiesList = async () => {
     try {
       const response = await fetch(
@@ -51,16 +55,19 @@ function ChangeSavedCities({ changeCities }) {
       alert("You can only select up to 4 cities.");
     } else {
       try {
-        const response = await fetch("https://alerm-api-9ededfd9b760.herokuapp.com/api/saveCities", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            macAddress: theCurrentMacAddress,
-            cities: selectedCities,
-          }),
-        });
+        const response = await fetch(
+          "https://alerm-api-9ededfd9b760.herokuapp.com/api/saveCities",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              macAddress: theCurrentMacAddress,
+              cities: selectedCities,
+            }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -82,7 +89,6 @@ function ChangeSavedCities({ changeCities }) {
 
   return (
     <div className="change-saved-cities">
-      <h1>בחר ערים</h1>
       <input
         type="text"
         placeholder="חפש עיר..."
@@ -103,9 +109,14 @@ function ChangeSavedCities({ changeCities }) {
           </div>
         ))}
       </div>
-      <button className="save-button" onClick={saveSelectedCities}>
-        שמור ערים
-      </button>
+      <div className="buttons-save-and-close">
+        <button className="save-button" onClick={saveSelectedCities}>
+          שמור ערים
+        </button>
+        <button className="close-button" onClick={handleOpenCloseCitiesList}>
+          סגור
+        </button>
+      </div>
     </div>
   );
 }
