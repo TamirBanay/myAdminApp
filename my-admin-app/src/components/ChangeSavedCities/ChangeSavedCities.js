@@ -51,7 +51,7 @@ function ChangeSavedCities({ changeCities }) {
       alert("You can only select up to 4 cities.");
     } else {
       try {
-        const response = await fetch("http://localhost:3000/api/saveCities", {
+        const response = await fetch("https://alerm-api-9ededfd9b760.herokuapp.com/api/saveCities", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
