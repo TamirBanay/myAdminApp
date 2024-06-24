@@ -19,9 +19,10 @@
 
 .button-and-loading {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   gap: 14px;
+  justify-content: center;
 }
 
 .button {
@@ -33,6 +34,10 @@
   cursor: pointer;
   transition: background-color 0.3s;
   width: 80px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button:hover {

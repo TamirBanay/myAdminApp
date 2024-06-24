@@ -1,22 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { _modules, _logs } from "../../services/atom";
+import {
+  _modules,
+  _logs,
+  _citiesListIsOpen,
+  _theCurrentMacAddress,
+} from "../../services/atom";
 import "./Test.css";
 import Loading from "../../components/loading/Loading";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import Badge from "@mui/material/Badge";
-
+import ChangeSavedCities from "../../components/ChangeSavedCities/ChangeSavedCities";
 function Tests() {
   const [pingResults, setPingResults] = useState({});
   const [loadingMacAddress, setLoadingMacAddress] = useState(null);
   const [error, setError] = useState("");
   const [testType, setTestType] = useState("");
   const [lastVersion, setLastVersion] = useState("");
+  const [citiesListIsOpen, setCityListIsOpen] =
+    useRecoilState(_citiesListIsOpen);
+  const [theCurrentMacAddress, setTheCurrentMacAddress] = useRecoilState(
+    _theCurrentMacAddress
+  );
 
   const [connectionStatus, setConnectionStatus] = useState({}); // New state for connection status
   const modulesLocalStorage = localStorage.getItem("modules");
   const modules = modulesLocalStorage ? JSON.parse(modulesLocalStorage) : [];
+
+  const handleOpenCloseCitiesList = (macAddress) => {
+    setCityListIsOpen(!citiesListIsOpen);
+    setTheCurrentMacAddress(macAddress);
+    console.log("mac:" + theCurrentMacAddress);
+  };
 
   const pingModulesWithMacAddress = async (macAddress, testType) => {
     setLoadingMacAddress(macAddress);
@@ -91,8 +107,12 @@ function Tests() {
       });
     };
 
-    fetchConnectionStatus();
+    const handleChangeCitiesListIsOpenToFalse = () => {
+      setCityListIsOpen(!ChangeSavedCities);
+    };
 
+    fetchConnectionStatus();
+    handleChangeCitiesListIsOpenToFalse();
     const intervalId = setInterval(fetchConnectionStatus, 60000);
 
     return () => clearInterval(intervalId);
@@ -118,88 +138,112 @@ function Tests() {
   return (
     <div>
       <div>
-        {modules.map((module, index) => (
-          <div className="Test-module" key={index}>
-            <div className="Test-module-details">
-              <strong className="ModuleName-test">
-                Module Name: {module.moduleName}
-                <div className="badge-div">
-                  <Badge
-                    badgeContent={""}
-                    color={
-                      connectionStatus[module.macAddress] ? "success" : "error"
-                    }
-                    variant="dot"
-                  />
+        {citiesListIsOpen ? (
+          <ChangeSavedCities
+            changeCities={() =>
+              pingModulesWithMacAddress(theCurrentMacAddress, "changeCities")
+            }
+          />
+        ) : (
+          <div>
+            {modules.map((module, index) => (
+              <div className="Test-module" key={index}>
+                <div className="Test-module-details">
+                  <strong className="ModuleName-test">
+                    Module Name: {module.moduleName}
+                    <div className="badge-div">
+                      <Badge
+                        badgeContent={""}
+                        color={
+                          connectionStatus[module.macAddress]
+                            ? "success"
+                            : "error"
+                        }
+                        variant="dot"
+                      />
+                    </div>
+                  </strong>
+                  <strong>
+                    Ip Address: {module.ipAddress || "Not Available"}
+                  </strong>
+                  <strong>
+                    Mac Address: {module.macAddress || "Not Available"}
+                  </strong>
+                  <strong>Version: {module.version || "Not Available"} </strong>
                 </div>
-              </strong>
-              <strong>Ip Address: {module.ipAddress || "Not Available"}</strong>
-              <strong>
-                Mac Address: {module.macAddress || "Not Available"}
-              </strong>
-              <strong>Version: {module.version || "Not Available"} </strong>
-            </div>
-            <div className="button-and-loading">
-              <button
-                className="button"
-                disabled={loadingMacAddress === module.macAddress}
-                onClick={() => {
-                  setTestType("PingTest");
-                  pingModulesWithMacAddress(module.macAddress, "PingTest");
-                }}
-              >
-                Send Ping
-              </button>
-              <button
-                className="button"
-                disabled={loadingMacAddress === module.macAddress}
-                onClick={() => {
-                  setTestType("LedTest");
-                  pingModulesWithMacAddress(module.macAddress, "LedTest");
-                }}
-              >
-                Test LEDs
-              </button>
+                <div className="button-and-loading">
+                  <button
+                    className="button"
+                    disabled={loadingMacAddress === module.macAddress}
+                    onClick={() => {
+                      setTestType("PingTest");
+                      pingModulesWithMacAddress(module.macAddress, "PingTest");
+                    }}
+                  >
+                    Send Ping
+                  </button>
+                  <button
+                    className="button"
+                    disabled={loadingMacAddress === module.macAddress}
+                    onClick={() => {
+                      setTestType("LedTest");
+                      pingModulesWithMacAddress(module.macAddress, "LedTest");
+                    }}
+                  >
+                    Test LEDs
+                  </button>
 
-              <button
-                className="button"
-                disabled={loadingMacAddress === module.macAddress}
-                onClick={() => {
-                  setTestType("LedTest");
-                  pingModulesWithMacAddress(module.macAddress, "Reset");
-                }}
-              >
-                Reset Module
-              </button>
-              <button
-                className="button"
-                disabled={
-                  loadingMacAddress === module.macAddress ||
-                  lastVersion === module.version // Assuming lastVersion should be compared with module.version
-                }
-                onClick={() => {
-                  setTestType("Update");
-                  pingModulesWithMacAddress(module.macAddress, "Update");
-                }}
-              >
-                Update Firmware
-              </button>
-              {loadingMacAddress === module.macAddress ? (
-                <div className="pingMassage">
-                  <Loading />
+                  <button
+                    className="button"
+                    disabled={loadingMacAddress === module.macAddress}
+                    onClick={() => {
+                      setTestType("LedTest");
+                      pingModulesWithMacAddress(module.macAddress, "Reset");
+                    }}
+                  >
+                    Reset Module
+                  </button>
+                  <button
+                    className="button"
+                    disabled={loadingMacAddress === module.macAddress}
+                    onClick={() => {
+                      setTestType("ChangeCities");
+                      handleOpenCloseCitiesList(module.macAddress);
+                    }}
+                  >
+                    Change cities
+                  </button>
+                  <button
+                    className="button"
+                    disabled={
+                      loadingMacAddress === module.macAddress ||
+                      lastVersion === module.version // Assuming lastVersion should be compared with module.version
+                    }
+                    onClick={() => {
+                      setTestType("Update");
+                      pingModulesWithMacAddress(module.macAddress, "Update");
+                    }}
+                  >
+                    Update Firmware
+                  </button>
+                  {loadingMacAddress === module.macAddress ? (
+                    <div className="pingMassage">
+                      <Loading />
+                    </div>
+                  ) : pingResults.macAddress === module.macAddress ? (
+                    <div className="pingMassage">
+                      <DoneOutlineIcon color="success" fontSize="large" />
+                    </div>
+                  ) : (
+                    <div className="pingMassage">
+                      <CloseIcon color="warning" fontSize="large" />
+                    </div>
+                  )}
                 </div>
-              ) : pingResults.macAddress === module.macAddress ? (
-                <div className="pingMassage">
-                  <DoneOutlineIcon color="success" fontSize="large" />
-                </div>
-              ) : (
-                <div className="pingMassage">
-                  <CloseIcon color="warning" fontSize="large" />
-                </div>
-              )}
-            </div>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
