@@ -25,6 +25,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: right;
+  direction: rtl;
 }
 
 .cities-list {
