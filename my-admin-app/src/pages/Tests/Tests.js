@@ -169,6 +169,14 @@ function Tests() {
                     Mac Address: {module.macAddress || "Not Available"}
                   </strong>
                   <strong>Version: {module.version || "Not Available"} </strong>
+                  <strong>
+                    Cities:{" "}
+                    {module.targetCities && module.targetCities.length > 0
+                      ? module.targetCities
+                          .filter((city) => city.trim() !== "")
+                          .join(", ")
+                      : "Not Available"}
+                  </strong>
                 </div>
                 <div className="button-and-loading">
                   <button
