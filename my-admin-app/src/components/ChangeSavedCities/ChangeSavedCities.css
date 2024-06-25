@@ -8,20 +8,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  /* justify-items: center; */
+  gap: 10px;
   align-items: center;
 }
 
-.change-saved-cities h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
-}
-
 .search-input {
-  width: 90%;
+  width: 300px;
   padding: 10px;
-  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: right;
@@ -29,8 +22,7 @@
 }
 
 .cities-list {
-  width: 90%;
-
+  width: 300px;
   display: flex;
   flex-direction: column;
   max-height: 400px;
@@ -61,10 +53,10 @@
 
 .save-button,
 .close-button {
-  display: block;
-  width: 40%;
+  /* display: block; */
+  width: 100px;
   padding: 10px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   background-color: #007bff;
   color: white;
   border: none;
@@ -81,5 +73,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 90%;
+  align-items: center;
+  height: 30px;
+  width: 320px;
+
+  padding: 15px 0px;
 }
