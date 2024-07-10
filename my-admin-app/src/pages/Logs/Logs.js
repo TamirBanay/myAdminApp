@@ -46,9 +46,9 @@ function Logs() {
 
     fetchLogs();
 
-    const intervalId = setInterval(fetchLogs, 30000);
+    // const intervalId = setInterval(fetchLogs, 30000);
 
-    return () => clearInterval(intervalId);
+    // return () => clearInterval(intervalId);
   }, [timeToDesplayLogs]);
 
   function groupLogsByMacAddress(logs) {
