@@ -27,7 +27,7 @@ function ChangeSavedCities({ changeCities }) {
   const fetchCitiesList = async () => {
     try {
       const response = await fetch(
-        "https://alerm-api-9ededfd9b760.herokuapp.com/citiesjson"
+        "https://logsapi-o1jn.onrender.com/citiesjson"
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -56,7 +56,7 @@ function ChangeSavedCities({ changeCities }) {
     } else {
       try {
         const response = await fetch(
-          "https://alerm-api-9ededfd9b760.herokuapp.com/api/saveCities",
+          "https://logsapi-o1jn.onrender.com/api/saveCities",
           {
             method: "POST",
             headers: {
