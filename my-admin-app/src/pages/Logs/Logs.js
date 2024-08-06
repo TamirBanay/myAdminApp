@@ -17,11 +17,12 @@ function Logs() {
     useRecoilState(_timeToDesplayLogs);
   const LocalStoragelogs = localStorage.getItem("logs");
   const logs = LocalStoragelogs ? JSON.parse(LocalStoragelogs) : [];
+
   useEffect(() => {
     const fetchLogs = async () => {
       try {
         const response = await fetch(
-          "https://alerm-api-9ededfd9b760.herokuapp.com/api/getLogs"
+          "https://logsapi-o1jn.onrender.com/api/getLogs"
         );
         if (!response.ok) {
           throw new Error(
@@ -46,8 +47,10 @@ function Logs() {
 
     fetchLogs();
 
+    // רענון הלוגים כל 30 שניות אם נדרש
     // const intervalId = setInterval(fetchLogs, 30000);
 
+    // ניקוי רענון במידה והמרכיב יוצא מה-DOM
     // return () => clearInterval(intervalId);
   }, [timeToDesplayLogs]);
 
@@ -157,4 +160,5 @@ function Logs() {
     </div>
   );
 }
+
 export default Logs;

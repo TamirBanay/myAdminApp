@@ -44,7 +44,7 @@ function Tests() {
 
     try {
       const response = await fetch(
-        "https://alerm-api-9ededfd9b760.herokuapp.com/api/pingModule",
+        "https://logsapi-o1jn.onrender.com/api/pingModule",
         requestOptions
       );
 
@@ -66,7 +66,7 @@ function Tests() {
   const fetchPongMessage = async () => {
     try {
       const response = await fetch(
-        "https://alerm-api-9ededfd9b760.herokuapp.com/api/pongReceivedFromModule"
+        "https://logsapi-o1jn.onrender.com/api/pongReceivedFromModule"
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -87,7 +87,7 @@ function Tests() {
       modules.forEach(async (module) => {
         try {
           const response = await fetch(
-            `https://alerm-api-9ededfd9b760.herokuapp.com/api/moduleIsConnectIndicator/${module.macAddress}`
+            `https://logsapi-o1jn.onrender.com/api/moduleIsConnectIndicator/${module.macAddress}`
           );
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -121,7 +121,7 @@ function Tests() {
     const fetchLastVersion = async () => {
       try {
         const response = await fetch(
-          "https://alerm-api-9ededfd9b760.herokuapp.com/api/getLastVersion"
+          "https://logsapi-o1jn.onrender.com/api/getLastVersion"
         );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

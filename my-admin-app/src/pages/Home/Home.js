@@ -9,7 +9,7 @@ function Home() {
     const fetchModules = async () => {
       try {
         const response = await fetch(
-          `${process.env.serverRenderUrl}/api/getModuels`
+          "https://logsapi-o1jn.onrender.com/api/getModuels"
         );
         if (!response.ok) {
           console.error("Response: ", response);

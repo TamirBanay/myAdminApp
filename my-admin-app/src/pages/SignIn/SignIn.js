@@ -53,7 +53,7 @@ export default function SignIn() {
     };
 
     try {
-      const response = await fetch("https://logs-foem.onrender.com/api/login", {
+      const response = await fetch("https://logsapi-o1jn.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
